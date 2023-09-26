@@ -1,22 +1,27 @@
-# create-svelte
+## battlebit-serverlist
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+A pretty useless web based server browser for the game BattleBit Remastered.
 
-## Creating a project
+Should have similar functionality as the `battlebit-serverbrowser-old` project but uses SvelteKit instead of Nextjs.
 
-If you're seeing this, you've probably already done this step. Congrats!
+### Development
+
+#### Install and run locally
+
+Clone the repository
 
 ```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
+$ git clone https://github.com/jagardaniel/battlebit-serverlist.git
 ```
 
-## Developing
+Install required packages
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+```bash
+$ cd battlebit-serverlist/
+$ npm install
+```
+
+Run the development server
 
 ```bash
 npm run dev
@@ -24,15 +29,3 @@ npm run dev
 # or start the server and open the app in a new browser tab
 npm run dev -- --open
 ```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
