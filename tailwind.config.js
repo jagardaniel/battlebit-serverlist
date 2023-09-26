@@ -8,18 +8,31 @@ export default {
   theme: {
     extend: {
       colors: {
-        // flowbite-svelte
+        // flowbite-svelte slate primary colors
         primary: {
-          50: "#FFF5F2",
-          100: "#FFF1EE",
-          200: "#FFE4DE",
-          300: "#FFD5CC",
-          400: "#FFBCAD",
-          500: "#FE795D",
-          600: "#EF562F",
-          700: "#EB4F27",
-          800: "#CC4522",
-          900: "#A5371B",
+          50: "#f8fafc",
+          100: "#f1f5f9",
+          200: "#e2e8f0",
+          300: "#cbd5e1",
+          400: "#94a3b8",
+          500: "#64748b",
+          600: "#475569",
+          700: "#334155",
+          800: "#1e293b",
+          900: "#0f172a",
+        },
+        // custom slate surface colors
+        surface: {
+          50: "#dfe1e5",
+          100: "#d4d7dc",
+          200: "#c9cdd4",
+          300: "#a9afb9",
+          400: "#697385",
+          500: "#283751",
+          600: "#243249",
+          700: "#1e293d",
+          800: "#182131",
+          900: "#141b28",
         },
       },
     },
