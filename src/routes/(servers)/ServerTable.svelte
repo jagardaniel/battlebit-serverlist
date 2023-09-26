@@ -72,6 +72,11 @@
   $: pageSize = $context.itemsPerPage;
   $: items = filterServers(servers, $context);
   $: paginatedItems = paginate({ items, pageSize, currentPage });
+  // Fix an issue where you can end up on a non existing page
+  // Example, you are on page 8 but select a filter that only has 1 page
+  $: if (currentPage > Math.ceil(items.length / pageSize)) {
+    currentPage = Math.ceil(items.length / pageSize);
+  }
 </script>
 
 <!-- Server table -->
