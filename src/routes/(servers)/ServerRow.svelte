@@ -37,7 +37,7 @@
               </div>
               <Tooltip>{server.Region.split("_")[0]}</Tooltip>
               <div class="mt-1 text-xs text-surface-300 tracking-wide font-normal">
-                {gameMode} • {server.Map} ({server.MapSize}) • {server.Hz}Hz
+                {gameMode} • {server.Map} ({server.MapSize}) • {server.DayNight} • {server.Hz}Hz
               </div>
             </div>
           </div>
