@@ -1,8 +1,10 @@
 <script lang="ts">
   import ServerRow from "./ServerRow.svelte";
   import type { Server, ServerFilters } from "$lib/types";
-  import { Table, TableBody, TableBodyRow } from "flowbite-svelte";
   import { getFilterContext } from "$lib/FilterContext";
+  import { Table, TableBody, TableBodyRow } from "flowbite-svelte";
+  import { paginate } from "svelte-paginate";
+  import SlatePaginationNav from "./SlatePaginationNav.svelte";
 
   export let servers: Server[];
 
@@ -65,19 +67,34 @@
     return rows;
   }
 
-  $: filteredServers = filterServers(servers, $context);
+  // Pagination from svelte-paginate (thank you, I don't need to think!)
+  let currentPage = 1;
+  $: pageSize = $context.itemsPerPage;
+  $: items = filterServers(servers, $context);
+  $: paginatedItems = paginate({ items, pageSize, currentPage });
 </script>
 
+<!-- Server table -->
 <Table color="custom" class="text-base border-t dark:border-surface-900">
   <TableBody>
-    {#if filteredServers.length === 0}
+    {#each paginatedItems as server, index (server.Name + index)}
+      <ServerRow {server} />
+    {:else}
       <TableBodyRow>
         <div class="m-4 text-center text-xl">No servers found</div>
       </TableBodyRow>
-    {:else}
-      {#each filteredServers as server, index (server.Name + index)}
-        <ServerRow {server} />
-      {/each}
-    {/if}
+    {/each}
   </TableBody>
 </Table>
+
+<!-- Pagination navigation -->
+{#if paginatedItems.length > 0}
+  <SlatePaginationNav
+    totalItems={items.length}
+    {pageSize}
+    {currentPage}
+    limit={2}
+    showStepOptions={true}
+    on:setPage={(e) => (currentPage = e.detail.page)}
+  />
+{/if}

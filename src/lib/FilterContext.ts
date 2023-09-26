@@ -12,6 +12,7 @@ const initialFilters = {
   isOfficial: [],
   maxPlayers: [],
   hasPassword: [],
+  itemsPerPage: 15,
 };
 
 export function setFilterContext() {
