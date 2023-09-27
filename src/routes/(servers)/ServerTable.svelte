@@ -69,11 +69,12 @@
 
   // Pagination from svelte-paginate (thank you, I don't need to think!)
   let currentPage = 1;
-  $: pageSize = $context.itemsPerPage;
+  let itemsPerPage = 15;
+  $: pageSize = itemsPerPage;
   $: items = filterServers(servers, $context);
   $: paginatedItems = paginate({ items, pageSize, currentPage });
-  // Fix an issue where you can end up on a non existing page
-  // Example, you are on page 8 but select a filter that only has 1 page
+  // Fix an issue where you can end up on a non existing empty page
+  // Example: you are on page 8 but select a filter that only has 1 page
   $: if (currentPage > Math.ceil(items.length / pageSize)) {
     currentPage = 1;
   }
