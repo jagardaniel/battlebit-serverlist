@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { DropdownItem as FilterDropdownItem } from "$lib/types";
-  import { getFilterContext } from "$lib/FilterContext";
+  import { filterStore } from "$lib/store";
   import { Button, Dropdown, Checkbox } from "flowbite-svelte";
   import { ChevronDownSolid } from "flowbite-svelte-icons";
 
@@ -16,15 +16,13 @@
     | "hasPassword";
   export let items: FilterDropdownItem[];
 
-  const context = getFilterContext();
-
   $: buttonText =
-    $context[filterKey].length > 0
-      ? placeholder + " (" + $context[filterKey].length + ")"
+    $filterStore[filterKey].length > 0
+      ? placeholder + " (" + $filterStore[filterKey].length + ")"
       : placeholder;
 
   $: selectedButtonClass =
-    $context[filterKey].length > 0 ? "bg-blue-700/10 hover:bg-blue-700/30" : "";
+    $filterStore[filterKey].length > 0 ? "bg-blue-700/10 hover:bg-blue-700/30" : "";
 </script>
 
 <Button
@@ -37,10 +35,14 @@
 <Dropdown class="w-48 p-2 bg-surface-600">
   {#each items as item}
     <li>
-      <Checkbox class="text-base font-normal" value={item.value} bind:group={$context[filterKey]}>
+      <Checkbox
+        class="text-base font-normal"
+        value={item.value}
+        bind:group={$filterStore[filterKey]}
+      >
         <p
           class="hover:text-surface-300"
-          class:text-white={$context[filterKey].includes(item.value)}
+          class:text-white={$filterStore[filterKey].includes(item.value)}
         >
           {item.label}
         </p>

@@ -1,10 +1,8 @@
 <script lang="ts">
-  import { getFilterContext } from "$lib/FilterContext";
+  import { filterStore } from "$lib/store";
   import { GameModes, Regions, type DropdownItem, Maps } from "$lib/types";
   import FilterDropdown from "./FilterDropdown.svelte";
   import { Search } from "flowbite-svelte";
-
-  const context = getFilterContext();
 
   const gameModeItems: DropdownItem[] = Object.entries(GameModes).map(([key, value]) => ({
     value: key,
@@ -48,7 +46,7 @@
       color="none"
       class="bg-surface-600 border-surface-700 h-10"
       placeholder="Search server name..."
-      bind:value={$context.name}
+      bind:value={$filterStore.name}
     />
   </div>
   <div>

@@ -1,14 +1,12 @@
 <script lang="ts">
   import ServerRow from "./ServerRow.svelte";
   import type { Server, ServerFilters } from "$lib/types";
-  import { getFilterContext } from "$lib/FilterContext";
+  import { filterStore } from "$lib/store";
   import { Table, TableBody, TableBodyRow } from "flowbite-svelte";
   import { paginate } from "svelte-paginate";
   import SlatePaginationNav from "./SlatePaginationNav.svelte";
 
   export let servers: Server[];
-
-  const context = getFilterContext();
 
   function filterServers(servers: Server[], filters: ServerFilters) {
     let rows: Server[] = [];
@@ -71,7 +69,7 @@
   let currentPage = 1;
   let itemsPerPage = 15;
   $: pageSize = itemsPerPage;
-  $: items = filterServers(servers, $context);
+  $: items = filterServers(servers, $filterStore);
   $: paginatedItems = paginate({ items, pageSize, currentPage });
   // Fix an issue where you can end up on a non existing empty page
   // Example: you are on page 8 but select a filter that only has 1 page
