@@ -1,8 +1,11 @@
 <script lang="ts">
+  import { invalidateAll } from "$app/navigation";
+  import ReloadIcon from "$lib/icons/ReloadIcon.svelte";
+  import BackspaceIcon from "$lib/icons/BackspaceIcon.svelte";
   import { filterStore } from "$lib/store";
   import { GameModes, Regions, type DropdownItem, Maps } from "$lib/types";
   import FilterDropdown from "./FilterDropdown.svelte";
-  import { Search } from "flowbite-svelte";
+  import { Button, Search, Tooltip } from "flowbite-svelte";
 
   const gameModeItems: DropdownItem[] = Object.entries(GameModes).map(([key, value]) => ({
     value: key,
@@ -38,6 +41,15 @@
     { value: "true", label: "Password" },
     { value: "false", label: "No password" },
   ];
+
+  function handleClearFilters() {
+    filterStore.reset();
+  }
+
+  function handleRefreshServers() {
+    // Re-run load function for this page
+    invalidateAll();
+  }
 </script>
 
 <div class="grid grid-cols-6 gap-4">
@@ -66,5 +78,33 @@
   </div>
   <div>
     <FilterDropdown filterKey="hasPassword" placeholder="Password set" items={hasPassword} />
+  </div>
+  <div class="col-span-3" />
+  <div class="col-span-1">
+    <div class="flex gap-2 justify-end">
+      <div>
+        <Button
+          on:click={handleClearFilters}
+          pill={true}
+          color="none"
+          class="!p-2 focus:ring-0 hover:bg-surface-600"
+        >
+          <BackspaceIcon class="w-6 h-6 text-blue-200" />
+        </Button>
+        <Tooltip>Clear filters</Tooltip>
+      </div>
+
+      <div>
+        <Button
+          on:click={handleRefreshServers}
+          pill={true}
+          color="none"
+          class="!p-2 focus:ring-0 hover:bg-surface-600"
+        >
+          <ReloadIcon class="w-6 h-6 text-blue-200" />
+        </Button>
+        <Tooltip>Refresh servers</Tooltip>
+      </div>
+    </div>
   </div>
 </div>
