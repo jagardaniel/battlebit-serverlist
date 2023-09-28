@@ -50,13 +50,15 @@
     // Re-run load function for this page
     invalidateAll();
   }
+
+  $: selectedSearchClass = $filterStore["name"] ? "bg-blue-700/10" : "";
 </script>
 
 <div class="grid grid-cols-6 gap-4">
   <div class="col-span-2">
     <Search
       color="none"
-      class="bg-surface-600 border-surface-700 h-10"
+      class="bg-surface-600 border-surface-700 h-10 {selectedSearchClass}"
       placeholder="Search server name..."
       bind:value={$filterStore.name}
     />
