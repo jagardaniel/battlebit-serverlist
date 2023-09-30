@@ -9,8 +9,8 @@
 
   // TODO: Do a real check if the image actually exists in the file structure
   // Bug happens if the map is in Maps but the image does not exist
-  const imageName = Maps.includes(server.Map) ? server.Map.toLowerCase() : "unknown";
-  const gameMode = GameModes[server.Gamemode as keyof typeof GameModes] || "Unknown mode";
+  $: imageName = Maps.includes(server.Map) ? server.Map.toLowerCase() : "unknown";
+  $: gameMode = GameModes[server.Gamemode as keyof typeof GameModes] || "Unknown mode";
   const regionChar = Regions[server.Region as keyof typeof Regions] || "🌍";
 
   const tooltipPassword = server.HasPassword ? "Password protected" : "No password";
