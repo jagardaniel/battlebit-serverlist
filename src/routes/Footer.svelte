@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { GithubSolid } from "flowbite-svelte-icons";
+  import GithubIcon from "$lib/icons/GithubIcon.svelte";
 </script>
 
 <div class="px-2 pt-2">
@@ -11,7 +11,7 @@
     </div>
     <div class="hover:text-blue-800/90">
       <a href="https://github.com/jagardaniel/battlebit-serverlist" target="_blank">
-        <GithubSolid />
+        <GithubIcon width="25" height="25" />
       </a>
     </div>
   </div>

@@ -1,7 +1,9 @@
 <script lang="ts">
+  import ChevronDoubleUpIcon from "$lib/icons/ChevronDoubleUpIcon.svelte";
+  import LockIcon from "$lib/icons/LockIcon.svelte";
+  import LockOpenVariantIcon from "$lib/icons/LockOpenVariantIcon.svelte";
   import { GameModes, Maps, Regions, type Server } from "$lib/types";
   import { TableBodyCell, TableBodyRow, Tooltip } from "flowbite-svelte";
-  import { LockSolid, LockOpenSolid, ChervonDoubleUpSolid } from "flowbite-svelte-icons";
 
   export let server: Server;
 
@@ -13,6 +15,8 @@
 
   const tooltipPassword = server.HasPassword ? "Password protected" : "No password";
   const tooltipOfficial = server.IsOfficial ? "Official server" : "Community server";
+  const passwordIconSize = 25;
+  const officialIconsize = 30;
 </script>
 
 <TableBodyRow color="custom" class="dark:border-surface-900">
@@ -50,17 +54,29 @@
     <div class="flex gap-7">
       <div>
         {#if server.HasPassword}
-          <LockSolid class="text-surface-200" />
+          <LockIcon width={passwordIconSize} height={passwordIconSize} class="text-surface-200" />
         {:else}
-          <LockOpenSolid class="text-surface-200/5" />
+          <LockOpenVariantIcon
+            width={passwordIconSize}
+            height={passwordIconSize}
+            class="text-surface-200/5"
+          />
         {/if}
         <Tooltip>{tooltipPassword}</Tooltip>
       </div>
       <div>
         {#if server.IsOfficial}
-          <ChervonDoubleUpSolid size="sm" class="mt-1 text-surface-200" />
+          <ChevronDoubleUpIcon
+            width={officialIconsize}
+            height={officialIconsize}
+            class="-mt-0.5 text-surface-200"
+          />
         {:else}
-          <ChervonDoubleUpSolid size="sm" class="mt-1 text-surface-200/5" />
+          <ChevronDoubleUpIcon
+            width={officialIconsize}
+            height={officialIconsize}
+            class="-mt-0.5 text-surface-200/5"
+          />
         {/if}
         <Tooltip>{tooltipOfficial}</Tooltip>
       </div>
