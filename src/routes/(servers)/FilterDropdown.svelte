@@ -2,7 +2,7 @@
   import type { DropdownItem as FilterDropdownItem } from "$lib/types";
   import { filterStore } from "$lib/store";
   import { Button, Dropdown, Checkbox } from "flowbite-svelte";
-  import { ChevronDownSolid } from "flowbite-svelte-icons";
+  import ChevronDownIcon from "$lib/icons/ChevronDownIcon.svelte";
 
   export let placeholder: string;
   // TODO: Should be a more dynamic way to do this.
@@ -30,7 +30,7 @@
   class="w-full h-10 opacity-90 text-base font-normal text-surface-100 bg-surface-600 hover:bg-surface-700/70 border border-surface-700 focus:ring-2 {selectedButtonClass}"
 >
   {buttonText}
-  <ChevronDownSolid class="w-2 h-2 ml-2" />
+  <ChevronDownIcon width="16" height="16" class="ml-2" />
 </Button>
 <Dropdown class="w-48 p-2 bg-surface-600">
   {#each items as item}
