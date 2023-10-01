@@ -51,14 +51,14 @@
     invalidateAll();
   }
 
-  $: selectedSearchClass = $filterStore["name"] ? "bg-blue-700/10" : "";
+  $: selectedSearchClass = $filterStore["name"] ? "bg-surface-300/70 dark:bg-blue-700/10" : "";
 </script>
 
 <div class="grid grid-cols-6 gap-4">
   <div class="col-span-2">
     <Search
       color="none"
-      class="bg-surface-600 border-surface-700 h-10 {selectedSearchClass}"
+      class="bg-surface-100/60 dark:bg-surface-600 border-surface-200 dark:border-surface-700 h-10 {selectedSearchClass}"
       placeholder="Search server name..."
       bind:value={$filterStore.name}
     />
@@ -89,9 +89,9 @@
           on:click={handleClearFilters}
           pill={true}
           color="none"
-          class="!p-2 focus:ring-0 hover:bg-surface-600"
+          class="!p-2 focus:ring-0 hover:bg-surface-200 dark:hover:bg-surface-600"
         >
-          <BackspaceIcon class="w-6 h-6 text-blue-200" />
+          <BackspaceIcon class="w-6 h-6 text-surface-500 dark:text-blue-200" />
         </Button>
         <Tooltip>Clear filters</Tooltip>
       </div>
@@ -101,9 +101,9 @@
           on:click={handleRefreshServers}
           pill={true}
           color="none"
-          class="!p-2 focus:ring-0 hover:bg-surface-600"
+          class="!p-2 focus:ring-0 hover:bg-surface-200 dark:hover:bg-surface-600"
         >
-          <ReloadIcon class="w-6 h-6 text-blue-200" />
+          <ReloadIcon class="w-6 h-6 text-surface-500 dark:text-blue-200" />
         </Button>
         <Tooltip>Refresh servers</Tooltip>
       </div>

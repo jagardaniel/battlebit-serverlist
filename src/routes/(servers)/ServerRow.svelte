@@ -33,14 +33,18 @@
       </div>
       <div class="flex-none">
         <div class="flex flex-col -mb-1">
-          <div class="-mt-0.5 text-surface-100 font-normal">{server.Name}</div>
+          <div class="-mt-0.5 text-surface-500 dark:text-surface-100 font-medium">
+            {server.Name}
+          </div>
           <div>
             <div class="flex gap-1.5">
               <div>
                 {regionChar}
               </div>
               <Tooltip>{server.Region.split("_")[0]}</Tooltip>
-              <div class="mt-1 text-xs text-surface-300 tracking-wide font-normal">
+              <div
+                class="mt-1 text-xs text-surface-400 dark:text-surface-300 tracking-wide font-normal"
+              >
                 {gameMode} • {server.Map} ({server.MapSize}) • {server.DayNight} • {server.Hz}Hz
               </div>
             </div>
@@ -54,12 +58,16 @@
     <div class="flex gap-7">
       <div>
         {#if server.HasPassword}
-          <LockIcon width={passwordIconSize} height={passwordIconSize} class="text-surface-200" />
+          <LockIcon
+            width={passwordIconSize}
+            height={passwordIconSize}
+            class="text-surface-500 dark:text-surface-200"
+          />
         {:else}
           <LockOpenVariantIcon
             width={passwordIconSize}
             height={passwordIconSize}
-            class="text-surface-200/5"
+            class="text-surface-500/10 dark:text-surface-200/5"
           />
         {/if}
         <Tooltip>{tooltipPassword}</Tooltip>
@@ -69,13 +77,13 @@
           <ChevronDoubleUpIcon
             width={officialIconsize}
             height={officialIconsize}
-            class="-mt-0.5 text-surface-200"
+            class="-mt-0.5 text-surface-500 dark:text-surface-200"
           />
         {:else}
           <ChevronDoubleUpIcon
             width={officialIconsize}
             height={officialIconsize}
-            class="-mt-0.5 text-surface-200/5"
+            class="-mt-0.5 text-surface-500/10 dark:text-surface-200/5"
           />
         {/if}
         <Tooltip>{tooltipOfficial}</Tooltip>
@@ -84,6 +92,6 @@
   </TableBodyCell>
 
   <TableBodyCell class="font-normal">
-    <p class="text-surface-200">{server.Players} / {server.MaxPlayers}</p>
+    <p class="text-surface-600 dark:text-surface-200">{server.Players} / {server.MaxPlayers}</p>
   </TableBodyCell>
 </TableBodyRow>

@@ -2,9 +2,8 @@
   import ServerRow from "./ServerRow.svelte";
   import type { Server, ServerFilters } from "$lib/types";
   import { filterStore } from "$lib/store";
-  import { Table, TableBody, TableBodyRow } from "flowbite-svelte";
+  import { Button, Table, TableBody, TableBodyRow } from "flowbite-svelte";
   import { paginate } from "svelte-paginate";
-  import SlatePaginationNav from "./SlatePaginationNav.svelte";
 
   export let servers: Server[];
 
@@ -71,10 +70,16 @@
   $: pageSize = itemsPerPage;
   $: items = filterServers(servers, $filterStore);
   $: paginatedItems = paginate({ items, pageSize, currentPage });
+  $: totalPages = Math.ceil(items.length / pageSize);
+
   // Fix an issue where you can end up on a non existing empty page
   // Example: you are on page 8 but select a filter that only has 1 page
   $: if (currentPage > Math.ceil(items.length / pageSize)) {
     currentPage = 1;
+  }
+
+  function handlePageClick(page: number) {
+    currentPage = page;
   }
 </script>
 
@@ -91,14 +96,25 @@
   </TableBody>
 </Table>
 
-<!-- Pagination navigation -->
+<!-- TODO: Should probably be a separate component in the future -->
 {#if paginatedItems.length > 0}
-  <SlatePaginationNav
-    totalItems={items.length}
-    {pageSize}
-    {currentPage}
-    limit={2}
-    showStepOptions={true}
-    on:setPage={(e) => (currentPage = e.detail.page)}
-  />
+  <div class="-mb-0.5 w-full bg-surface-50/30 dark:bg-surface-500 border-t dark:border-surface-900">
+    <div class="flex items-center justify-center">
+      <div>
+        {#each { length: totalPages } as _, i}
+          <Button
+            size="lg"
+            color="none"
+            class="rounded-none hover:bg-surface-100 dark:hover:bg-surface-700 focus:ring-0 {i +
+              1 ==
+            currentPage
+              ? 'bg-surface-100 dark:bg-surface-700 dark:text-blue-200'
+              : ''}"
+            on:click={() => handlePageClick(i + 1)}
+            >{i + 1}
+          </Button>
+        {/each}
+      </div>
+    </div>
+  </div>
 {/if}
