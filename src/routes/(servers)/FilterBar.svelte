@@ -5,7 +5,7 @@
   import { filterStore } from "$lib/store";
   import { GameModes, Regions, type DropdownItem, Maps } from "$lib/types";
   import FilterDropdown from "./FilterDropdown.svelte";
-  import { Button, Search, Tooltip } from "flowbite-svelte";
+  import { Button, CloseButton, Search, Tooltip } from "flowbite-svelte";
 
   const gameModeItems: DropdownItem[] = Object.entries(GameModes).map(([key, value]) => ({
     value: key,
@@ -61,7 +61,11 @@
       class="bg-surface-100/60 dark:bg-surface-600 border-surface-200 dark:border-surface-700 h-10 {selectedSearchClass}"
       placeholder="Search server name..."
       bind:value={$filterStore.name}
-    />
+    >
+      {#if $filterStore.name.length > 0}
+        <CloseButton class="mr-2" on:click={() => ($filterStore.name = "")} />
+      {/if}
+    </Search>
   </div>
   <div>
     <FilterDropdown filterKey="gameModes" placeholder="Game modes" items={gameModeItems} />
