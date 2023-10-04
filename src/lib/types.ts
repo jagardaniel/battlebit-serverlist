@@ -72,6 +72,10 @@ export const Maps = [
   "Old_MultuIslands",
   "Old_Namak",
   "Old_OilDunes",
+  "Old_WineParadise",
+  // Available in the game since the last patch but no picture for them yet
+  // "Old_Wakistan",
+  // "Old_SandySunset",
 ];
 
 export const Regions = {
