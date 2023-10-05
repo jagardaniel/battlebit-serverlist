@@ -2,7 +2,7 @@
   import ServerRow from "./ServerRow.svelte";
   import type { Server, ServerFilters } from "$lib/types";
   import { filterStore } from "$lib/store";
-  import { Button, Table, TableBody, TableBodyRow } from "flowbite-svelte";
+  import { Button, Select, Table, TableBody, TableBodyRow } from "flowbite-svelte";
   import { paginate } from "svelte-paginate";
 
   export let servers: Server[];
@@ -81,6 +81,15 @@
   function handlePageClick(page: number) {
     currentPage = page;
   }
+
+  let perPageSizes = [
+    { value: 5, name: "5" },
+    { value: 15, name: "15" },
+    { value: 30, name: "30" },
+    { value: 50, name: "50" },
+    { value: 100, name: "100" },
+    { value: 500, name: "500" },
+  ];
 </script>
 
 <!-- Server table -->
@@ -99,7 +108,7 @@
 <!-- TODO: Should probably be a separate component in the future -->
 {#if paginatedItems.length > 0}
   <div class="-mb-0.5 w-full bg-surface-50/30 dark:bg-surface-500 border-t dark:border-surface-900">
-    <div class="flex items-center justify-center">
+    <div class="flex items-center justify-between gap-4 px-4">
       <div>
         {#each { length: totalPages } as _, i}
           <Button
@@ -114,6 +123,15 @@
             >{i + 1}
           </Button>
         {/each}
+      </div>
+      <div>
+        <Select
+          placeholder="Items per page"
+          class="w-24 opacity-90 font-normal text-surface-500 dark:text-surface-100 bg-surface-100/60 dark:bg-surface-600 hover:bg-surface-100 dark:hover:bg-surface-700/70 border border-surface-200 dark:border-surface-700"
+          size="sm"
+          items={perPageSizes}
+          bind:value={itemsPerPage}
+        />
       </div>
     </div>
   </div>
