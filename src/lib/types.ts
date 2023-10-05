@@ -43,6 +43,7 @@ export const GameModes = {
   RUSH: "Rush",
   TDM: "Team Deathmatch",
   VoxelFortify: "Voxel Fortify",
+  VoxelTrench: "Voxel Trench",
 };
 
 export const Maps = [
