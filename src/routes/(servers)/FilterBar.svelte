@@ -5,7 +5,7 @@
   import { filterStore } from "$lib/store";
   import { GameModes, Regions, type DropdownItem, Maps } from "$lib/types";
   import FilterDropdown from "./FilterDropdown.svelte";
-  import { Button, CloseButton, Search, Tooltip } from "flowbite-svelte";
+  import { Button, Checkbox, CloseButton, Search, Tooltip } from "flowbite-svelte";
 
   const gameModeItems: DropdownItem[] = Object.entries(GameModes).map(([key, value]) => ({
     value: key,
@@ -85,8 +85,13 @@
   <div>
     <FilterDropdown filterKey="hasPassword" placeholder="Password set" items={hasPassword} />
   </div>
-  <div class="col-span-3" />
-  <div class="col-span-1">
+  <div>
+    <Checkbox class="mt-2 ml-2 text-base font-normal" bind:checked={$filterStore.showEmpty}>
+      Show empty servers
+    </Checkbox>
+  </div>
+  <div class="col-span-2" />
+  <div>
     <div class="flex gap-2 justify-end">
       <div>
         <Button

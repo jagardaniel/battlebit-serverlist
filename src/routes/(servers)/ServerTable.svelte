@@ -58,6 +58,11 @@
         }
       }
 
+      // Filter by "show empty" checkbox
+      if (!filters.showEmpty) {
+        if (server.Players == 0) return;
+      }
+
       rows.push(server);
     });
 

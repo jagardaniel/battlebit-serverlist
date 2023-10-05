@@ -23,6 +23,7 @@ export interface ServerFilters {
   isOfficial: string[];
   maxPlayers: string[];
   hasPassword: string[];
+  showEmpty: boolean;
 }
 
 export type DropdownItem = {
