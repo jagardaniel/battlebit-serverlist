@@ -70,7 +70,7 @@
             class="text-surface-500/10 dark:text-surface-200/5"
           />
         {/if}
-        <Tooltip>{tooltipPassword}</Tooltip>
+        <Tooltip placement="left">{tooltipPassword}</Tooltip>
       </div>
       <div>
         {#if server.IsOfficial}
@@ -86,7 +86,7 @@
             class="-mt-0.5 text-surface-500/10 dark:text-surface-200/5"
           />
         {/if}
-        <Tooltip>{tooltipOfficial}</Tooltip>
+        <Tooltip placement="right">{tooltipOfficial}</Tooltip>
       </div>
     </div>
   </TableBodyCell>
