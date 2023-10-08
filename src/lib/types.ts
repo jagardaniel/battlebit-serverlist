@@ -56,6 +56,7 @@ export const Maps = [
   "Eduardovo",
   "Frugis",
   "Isle",
+  "Kodiak",
   "Lonovo",
   "MultuIslands",
   "Namak",
