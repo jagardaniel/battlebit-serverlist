@@ -75,8 +75,8 @@ export const Maps = [
   "Old_Namak",
   "Old_OilDunes",
   "Old_WineParadise",
+  "Old_Wakistan",
   // Available in the game since the last patch but no picture for them yet
-  // "Old_Wakistan",
   // "Old_SandySunset",
 ];
 
