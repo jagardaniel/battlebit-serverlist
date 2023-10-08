@@ -8,7 +8,7 @@ export const initialStore: ServerFilters = {
   regions: [],
   isOfficial: [],
   maxPlayers: [],
-  hasPassword: [],
+  showPassword: true,
   showEmpty: true,
 };
 
@@ -29,7 +29,7 @@ function createStore() {
         regions: [],
         isOfficial: [],
         maxPlayers: [],
-        hasPassword: [],
+        showPassword: true,
         showEmpty: true,
       }),
   };

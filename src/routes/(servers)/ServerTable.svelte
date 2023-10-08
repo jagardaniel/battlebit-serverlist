@@ -51,11 +51,9 @@
         }
       }
 
-      // Filter by password configuration
-      if (filters.hasPassword.length > 0) {
-        if (!filters.hasPassword.some((item) => item == server.HasPassword.toString())) {
-          return;
-        }
+      // Filter by "show password" checkbox
+      if (!filters.showPassword) {
+        if (server.HasPassword) return;
       }
 
       // Filter by "show empty" checkbox

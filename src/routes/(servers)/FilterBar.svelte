@@ -83,7 +83,9 @@
     <FilterDropdown filterKey="maxPlayers" placeholder="Max players" items={maxPlayersItems} />
   </div>
   <div>
-    <FilterDropdown filterKey="hasPassword" placeholder="Password set" items={hasPassword} />
+    <Checkbox class="mt-2 ml-2 text-base font-normal" bind:checked={$filterStore.showPassword}>
+      Show password set
+    </Checkbox>
   </div>
   <div>
     <Checkbox class="mt-2 ml-2 text-base font-normal" bind:checked={$filterStore.showEmpty}>

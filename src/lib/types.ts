@@ -22,7 +22,7 @@ export interface ServerFilters {
   regions: string[];
   isOfficial: string[];
   maxPlayers: string[];
-  hasPassword: string[];
+  showPassword: boolean;
   showEmpty: boolean;
 }
 

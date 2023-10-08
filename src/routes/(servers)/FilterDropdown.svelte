@@ -7,13 +7,7 @@
   export let placeholder: string;
   // TODO: Should be a more dynamic way to do this.
   // Can't use a normal string, TypeScript complains.
-  export let filterKey:
-    | "isOfficial"
-    | "maps"
-    | "regions"
-    | "gameModes"
-    | "maxPlayers"
-    | "hasPassword";
+  export let filterKey: "isOfficial" | "maps" | "regions" | "gameModes" | "maxPlayers";
   export let items: FilterDropdownItem[];
 
   $: buttonText =
