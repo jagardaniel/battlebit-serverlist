@@ -41,7 +41,7 @@
               <div>
                 {regionChar}
               </div>
-              <Tooltip>{server.Region.split("_")[0]}</Tooltip>
+              <Tooltip placement="right">{server.Region.split("_")[0]}</Tooltip>
               <div
                 class="mt-1 text-xs text-surface-400 dark:text-surface-300 tracking-wide font-normal"
               >
