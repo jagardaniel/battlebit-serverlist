@@ -3,6 +3,8 @@
   import FilterBar from "./FilterBar.svelte";
 
   export let data;
+
+  let showFavorites: boolean = false;
 </script>
 
 <svelte:head>
@@ -10,9 +12,9 @@
 </svelte:head>
 
 <div class="p-4 bg-surface-50/30 dark:bg-surface-500">
-  <FilterBar />
+  <FilterBar bind:showFavorites />
 </div>
 
 <div>
-  <ServerTable servers={data.servers} />
+  <ServerTable servers={data.servers} {showFavorites} />
 </div>

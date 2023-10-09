@@ -6,11 +6,26 @@
   import { paginate } from "svelte-paginate";
 
   export let servers: Server[];
+  export let showFavorites: boolean;
 
-  const showFavorites: boolean = true;
-
-  function filterServers(servers: Server[], filters: ServerFilters) {
+  function filterServers(
+    servers: Server[],
+    filters: ServerFilters,
+    favorites: string[],
+    favoritesToggle: boolean,
+  ) {
     let rows: Server[] = [];
+
+    // Only show favorite servers if showFavorites is true
+    if (favoritesToggle) {
+      servers.forEach((server) => {
+        if (favorites.includes(server.Name)) {
+          rows.push(server);
+        }
+      });
+
+      return rows;
+    }
 
     servers.forEach((server) => {
       // Filter by server name
@@ -73,7 +88,7 @@
   let currentPage = 1;
   let itemsPerPage = 15;
   $: pageSize = itemsPerPage;
-  $: items = filterServers(servers, $filterStore);
+  $: items = filterServers(servers, $filterStore, $favoriteStore, showFavorites);
   $: paginatedItems = paginate({ items, pageSize, currentPage });
   $: totalPages = Math.ceil(items.length / pageSize);
 

@@ -2,11 +2,13 @@
   import { invalidateAll } from "$app/navigation";
   import ReloadIcon from "$lib/icons/ReloadIcon.svelte";
   import BackspaceIcon from "$lib/icons/BackspaceIcon.svelte";
-  import { filterStore } from "$lib/stores";
+  import { favoriteStore, filterStore } from "$lib/stores";
   import { GameModes, Regions, type DropdownItem, Maps } from "$lib/types";
   import FilterDropdown from "./FilterDropdown.svelte";
   import { Button, Checkbox, CloseButton, Search, Tooltip } from "flowbite-svelte";
   import StarIcon from "$lib/icons/StarIcon.svelte";
+
+  export let showFavorites: boolean;
 
   const gameModeItems: DropdownItem[] = Object.entries(GameModes).map(([key, value]) => ({
     value: key,
@@ -38,13 +40,13 @@
     { value: "16", label: "8vs8" },
   ];
 
-  const hasPassword: DropdownItem[] = [
-    { value: "true", label: "Password" },
-    { value: "false", label: "No password" },
-  ];
+  function handleToggleFavorites() {
+    showFavorites = !showFavorites;
+  }
 
   function handleClearFilters() {
     filterStore.reset();
+    showFavorites = false;
   }
 
   function handleRefreshServers() {
@@ -53,6 +55,7 @@
   }
 
   $: selectedSearchClass = $filterStore["name"] ? "bg-surface-300/70 dark:bg-blue-700/10" : "";
+  $: toggleFavoriteClass = showFavorites ? "text-yellow-400 dark:text-yellow-400" : "";
 </script>
 
 <div class="grid grid-cols-6 gap-4">
@@ -104,11 +107,12 @@
     <div class="flex gap-2 justify-end">
       <div>
         <Button
+          on:click={handleToggleFavorites}
           pill={true}
           color="none"
           class="!p-2 focus:ring-0 hover:bg-surface-200 dark:hover:bg-surface-600"
         >
-          <StarIcon class="w-6 h-6 text-surface-500 dark:text-blue-200" />
+          <StarIcon class="w-6 h-6 text-surface-500 dark:text-blue-200 {toggleFavoriteClass}" />
         </Button>
         <Tooltip>Toggle favorite servers</Tooltip>
       </div>

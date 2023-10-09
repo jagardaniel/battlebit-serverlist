@@ -129,10 +129,9 @@
   <TableBodyCell class="font-normal">
     <p class="text-surface-600 dark:text-surface-200">
       {server.Players} / {server.MaxPlayers}
-
-      <span class="pl-2 text-surface-300 dark:text-surface-400"
-        >{server.QueuePlayers > 0 ? "(" + server.QueuePlayers + ")" : ""}</span
-      >
+      <span class="pl-2 text-surface-300 dark:text-surface-400">
+        {server.QueuePlayers > 0 ? "(" + server.QueuePlayers + ")" : ""}
+      </span>
     </p>
   </TableBodyCell>
 </TableBodyRow>
