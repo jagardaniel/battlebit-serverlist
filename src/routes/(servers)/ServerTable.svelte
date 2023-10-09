@@ -1,11 +1,13 @@
 <script lang="ts">
   import ServerRow from "./ServerRow.svelte";
   import type { Server, ServerFilters } from "$lib/types";
-  import { filterStore } from "$lib/store";
+  import { favoriteStore, filterStore } from "$lib/stores";
   import { Button, Select, Table, TableBody, TableBodyRow } from "flowbite-svelte";
   import { paginate } from "svelte-paginate";
 
   export let servers: Server[];
+
+  const showFavorites: boolean = true;
 
   function filterServers(servers: Server[], filters: ServerFilters) {
     let rows: Server[] = [];

@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { DropdownItem as FilterDropdownItem } from "$lib/types";
-  import { filterStore } from "$lib/store";
+  import { filterStore } from "$lib/stores";
   import { Button, Dropdown, Checkbox } from "flowbite-svelte";
   import ChevronDownIcon from "$lib/icons/ChevronDownIcon.svelte";
 

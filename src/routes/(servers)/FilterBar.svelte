@@ -2,10 +2,11 @@
   import { invalidateAll } from "$app/navigation";
   import ReloadIcon from "$lib/icons/ReloadIcon.svelte";
   import BackspaceIcon from "$lib/icons/BackspaceIcon.svelte";
-  import { filterStore } from "$lib/store";
+  import { filterStore } from "$lib/stores";
   import { GameModes, Regions, type DropdownItem, Maps } from "$lib/types";
   import FilterDropdown from "./FilterDropdown.svelte";
   import { Button, Checkbox, CloseButton, Search, Tooltip } from "flowbite-svelte";
+  import StarIcon from "$lib/icons/StarIcon.svelte";
 
   const gameModeItems: DropdownItem[] = Object.entries(GameModes).map(([key, value]) => ({
     value: key,
@@ -83,18 +84,35 @@
     <FilterDropdown filterKey="maxPlayers" placeholder="Max players" items={maxPlayersItems} />
   </div>
   <div>
-    <Checkbox class="mt-2 ml-2 text-base font-normal" bind:checked={$filterStore.showPassword}>
+    <Checkbox
+      class="mt-2 ml-2 text-base font-normal hover:text-surface-500 hover:dark:text-surface-300"
+      bind:checked={$filterStore.showPassword}
+    >
       Show password set
     </Checkbox>
   </div>
   <div>
-    <Checkbox class="mt-2 ml-2 text-base font-normal" bind:checked={$filterStore.showEmpty}>
+    <Checkbox
+      class="mt-2 ml-2 text-base font-normal hover:text-surface-500 hover:dark:text-surface-300"
+      bind:checked={$filterStore.showEmpty}
+    >
       Show empty servers
     </Checkbox>
   </div>
   <div class="col-span-2" />
   <div>
     <div class="flex gap-2 justify-end">
+      <div>
+        <Button
+          pill={true}
+          color="none"
+          class="!p-2 focus:ring-0 hover:bg-surface-200 dark:hover:bg-surface-600"
+        >
+          <StarIcon class="w-6 h-6 text-surface-500 dark:text-blue-200" />
+        </Button>
+        <Tooltip>Toggle favorite servers</Tooltip>
+      </div>
+
       <div>
         <Button
           on:click={handleClearFilters}

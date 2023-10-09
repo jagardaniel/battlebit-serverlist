@@ -12,7 +12,7 @@ export const initialStore: ServerFilters = {
   showEmpty: true,
 };
 
-function createStore() {
+function createFilterStore() {
   const { subscribe, set, update } = persisted<ServerFilters>("serverFilters", initialStore);
 
   return {
@@ -20,7 +20,7 @@ function createStore() {
     set,
     update,
     // TODO: Does not reset (the second time) if I use initialStore here instead of
-    // manually "clearing" all values here. Probably something basic, not sure why.
+    // manually "clearing" all values like below. Probably something basic, not sure why.
     reset: () =>
       set({
         name: "",
@@ -35,4 +35,17 @@ function createStore() {
   };
 }
 
-export const filterStore = createStore();
+export const filterStore = createFilterStore();
+
+function createFavoriteStore() {
+  const { subscribe, set, update } = persisted<string[]>("serverFavorites", []);
+
+  return {
+    subscribe,
+    set,
+    update,
+    reset: () => set([]),
+  };
+}
+
+export const favoriteStore = createFavoriteStore();
