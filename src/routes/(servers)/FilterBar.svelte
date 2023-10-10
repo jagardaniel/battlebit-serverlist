@@ -2,7 +2,7 @@
   import { invalidateAll } from "$app/navigation";
   import ReloadIcon from "$lib/icons/ReloadIcon.svelte";
   import BackspaceIcon from "$lib/icons/BackspaceIcon.svelte";
-  import { favoriteStore, filterStore } from "$lib/stores";
+  import { filterStore } from "$lib/stores";
   import { GameModes, Regions, type DropdownItem, Maps } from "$lib/types";
   import FilterDropdown from "./FilterDropdown.svelte";
   import { Button, Checkbox, CloseButton, Search, Tooltip } from "flowbite-svelte";

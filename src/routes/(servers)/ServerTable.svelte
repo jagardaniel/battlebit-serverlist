@@ -98,6 +98,30 @@
     currentPage = 1;
   }
 
+  // Get a list of favorite servers that are not showing up.
+  // Most likely offline or have changed name
+  function getOfflineFavorites(servers: Server[], favorites: string[]) {
+    let offline: string[] = [];
+
+    favorites.forEach((favorite) => {
+      if (!servers.some((e) => e.Name == favorite)) {
+        offline.push(favorite);
+      }
+    });
+
+    return offline;
+  }
+
+  function handleClearFavorites(offlineServers: string[]) {
+    $favoriteStore.forEach((item) => {
+      if (offlineServers.includes(item)) {
+        $favoriteStore = $favoriteStore.filter((s) => s !== item);
+      }
+    });
+  }
+
+  $: offlineServers = getOfflineFavorites(items, $favoriteStore);
+
   function handlePageClick(page: number) {
     currentPage = page;
   }
@@ -124,6 +148,30 @@
     {/each}
   </TableBody>
 </Table>
+
+<!-- Show favorite servers offline -->
+{#if showFavorites && offlineServers.length > 0}
+  <div class="p-4 text-sm border-t dark:border-surface-900">
+    <p>
+      {offlineServers.length} of your favorite servers appear to be offline. They have most likely changed
+      name. Click the button below to remove them from your favorite list.
+    </p>
+
+    <ul class="pl-4 list-disc">
+      {#each offlineServers as server}
+        <li>{server}</li>
+      {/each}
+    </ul>
+
+    <Button
+      on:click={() => handleClearFavorites(offlineServers)}
+      size="sm"
+      class="h-10 mt-2 opacity-90 text-sm font-normal text-surface-500 dark:text-surface-100 bg-surface-100/60 dark:bg-surface-600 hover:bg-surface-100 dark:hover:bg-surface-700/70 border border-surface-200 dark:border-surface-700 focus:ring-2"
+    >
+      Clear offline favorites
+    </Button>
+  </div>
+{/if}
 
 <!-- TODO: Should probably be a separate component in the future -->
 {#if paginatedItems.length > 0}
