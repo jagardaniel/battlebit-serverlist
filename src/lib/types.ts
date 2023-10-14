@@ -77,8 +77,7 @@ export const Maps = [
   "Old_OilDunes",
   "Old_WineParadise",
   "Old_Wakistan",
-  // Available in the game since the last patch but no picture for them yet
-  // "Old_SandySunset",
+  "Old_SandySunset",
 ];
 
 export const Regions = {
