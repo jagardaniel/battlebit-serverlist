@@ -15,7 +15,7 @@ export type Server = {
   Build: string;
 };
 
-export interface ServerFilters {
+export interface ServerFilter {
   name: string;
   gameModes: string[];
   maps: string[];
@@ -26,7 +26,7 @@ export interface ServerFilters {
   showEmpty: boolean;
 }
 
-export type DropdownItem = {
+export type FilterDropdownItem = {
   label: string;
   value: string;
 };

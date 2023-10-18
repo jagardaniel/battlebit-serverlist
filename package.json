@@ -14,20 +14,18 @@
   "devDependencies": {
     "@sveltejs/adapter-auto": "^2.0.0",
     "@sveltejs/kit": "^1.20.4",
+    "@tailwindcss/forms": "^0.5.6",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "autoprefixer": "^10.4.16",
     "eslint": "^8.28.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-svelte": "^2.30.0",
-    "flowbite": "^1.8.1",
-    "flowbite-svelte": "^0.44.17",
-    "postcss": "^8.4.30",
+    "postcss": "^8.4.31",
     "prettier": "^2.8.0",
     "prettier-plugin-svelte": "^2.10.1",
     "svelte": "^4.0.5",
     "svelte-check": "^3.4.3",
-    "svelte-paginate": "^0.1.0",
     "tailwindcss": "^3.3.3",
     "tslib": "^2.4.1",
     "typescript": "^5.0.0",
@@ -35,6 +33,6 @@
   },
   "type": "module",
   "dependencies": {
-    "svelte-local-storage-store": "^0.6.0"
+    "svelte-persisted-store": "^0.7.0"
   }
 }

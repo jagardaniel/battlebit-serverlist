@@ -1,7 +1,7 @@
-import type { ServerFilters } from "./types";
-import { persisted } from "svelte-local-storage-store";
+import type { ServerFilter } from "./types";
+import { persisted } from "svelte-persisted-store";
 
-export const initialStore: ServerFilters = {
+export const initialStore: ServerFilter = {
   name: "",
   gameModes: [],
   maps: [],
@@ -13,7 +13,7 @@ export const initialStore: ServerFilters = {
 };
 
 function createFilterStore() {
-  const { subscribe, set, update } = persisted<ServerFilters>("serverFilters", initialStore);
+  const { subscribe, set, update } = persisted<ServerFilter>("serverFilters", initialStore);
 
   return {
     subscribe,
