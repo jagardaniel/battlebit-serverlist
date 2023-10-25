@@ -10,6 +10,7 @@
   } from "$lib/types";
   import FilterDropdown from "./FilterDropdown.svelte";
   import { favoriteStore, filterStore } from "$lib/stores";
+
   import StarIcon from "$lib/icons/StarIcon.svelte";
   import BackspaceIcon from "$lib/icons/BackspaceIcon.svelte";
   import ReloadIcon from "$lib/icons/ReloadIcon.svelte";
@@ -18,6 +19,10 @@
   import SortUpIcon from "$lib/icons/SortUpIcon.svelte";
   import SortDownIcon from "$lib/icons/SortDownIcon.svelte";
   import ServerRow from "./ServerRow.svelte";
+  import ChevronLeftIcon from "$lib/icons/ChevronLeftIcon.svelte";
+  import ChevronRightIcon from "$lib/icons/ChevronRightIcon.svelte";
+  import ChevronDoubleLeftIcon from "$lib/icons/ChevronDoubleLeftIcon.svelte";
+  import ChevronDoubleRightIcon from "$lib/icons/ChevronDoubleRightIcon.svelte";
 
   export let data;
 
@@ -193,7 +198,7 @@
 
   // Pagination
   // Example from https://svelte.dev/repl/84a8d64a6f1e49feba8f6a491ecc55f5?version=3.35.0
-  // TODO: Can probably be moved to a separate/shared component
+  // TODO: Should probably be moved to a separate/shared component
   let perPage = 15;
   const perPageItems = [5, 15, 30, 50, 100];
 
@@ -205,6 +210,44 @@
   $: trimmedRows = filteredServers.slice(start, end + 1);
   $: totalRows, (currentPage = 0);
   $: currentPage, start, end;
+
+  // A non-programmers attempt to do his own pagination navigation
+  // Limit specifices the amount of pages to show around the current page
+  // Example with pageNavLimit set to two: 2 3 [4] 5 6
+  const pageNavLimit = 3;
+
+  function pageNavigation(total: number, current: number, limit: number) {
+    let pageNav = [];
+    let startIndex = current - limit;
+    let endIndex = current + limit;
+
+    const startDiff = current - limit;
+    const endDiff = endIndex - (total - 1);
+
+    if (total > limit * 2 + 1) {
+      if (startDiff < 0) {
+        startIndex = 0;
+        endIndex = current + limit + Math.abs(startDiff);
+      }
+
+      if (endDiff > 0) {
+        startIndex -= endDiff;
+        endIndex -= endDiff;
+      }
+    } else {
+      // Show everything since the amount of pages are lower than the total limit
+      startIndex = 0;
+      endIndex = total - 1;
+    }
+
+    for (var i = startIndex; i <= endIndex; i++) {
+      pageNav.push(i);
+    }
+
+    return pageNav;
+  }
+
+  $: pageNavItems = pageNavigation(totalPages, currentPage, pageNavLimit);
 
   $: selectedSearchClass =
     $filterStore["name"].length > 0 ? "dark:bg-blue-700/10 dark:hover:bg-blue-700/30" : "";
@@ -369,8 +412,8 @@
   </table>
 
   <!-- Pagination -->
-  <!-- TODO: Can probably be moved to a separate/shared component -->
-  <div class="pl-4 pr-10 text-sm dark:bg-surface-600 border-t dark:border-surface-900">
+  <!-- TODO: Should probably be moved to a separate/shared component -->
+  <div class="px-4 py-2 text-sm dark:bg-surface-600 border-t dark:border-surface-900">
     <div class="flex justify-between items-center">
       <div class="flex items-center gap-4">
         <div>
@@ -380,27 +423,86 @@
             {/each}
           </select>
         </div>
+
         <div>
           Showing <b>{start + 1}</b> to <b>{end + 1}</b> of <b>{filteredServers.length}</b> results
         </div>
       </div>
 
-      <div class="text-lg">
-        {#each { length: totalPages } as _, i}
-          <button
-            class="h-full hover:dark:bg-surface-800 py-3 px-4"
-            class:dark:bg-surface-800={i == currentPage}
-            class:dark:text-gray-50={i == currentPage}
-            disabled={i == currentPage}
-            on:click={() => {
-              currentPage = i;
-            }}
-          >
-            {i + 1}
-          </button>
-        {:else}
-          <button class="h-full py-3 px-4" disabled>1</button>
-        {/each}
+      <div>
+        <div class="flex gap-1 mt-1">
+          <div class="flex-none">
+            <button
+              class="py-0.5 rounded-sm border-1"
+              class:dark:bg-surface-700={currentPage != 0}
+              class:dark:bg-gray-700={currentPage == 0}
+              class:dark:hover:bg-surface-900={currentPage != 0}
+              disabled={currentPage == 0}
+              on:click={() => {
+                currentPage = 0;
+              }}
+            >
+              <ChevronDoubleLeftIcon width="24" height="24" />
+            </button>
+            <button
+              class="py-0.5 rounded-sm border-1"
+              class:dark:bg-surface-700={currentPage != 0}
+              class:dark:bg-gray-700={currentPage == 0}
+              class:dark:hover:bg-surface-900={currentPage != 0}
+              disabled={currentPage == 0}
+              on:click={() => {
+                currentPage--;
+              }}
+            >
+              <ChevronLeftIcon width="24" height="24" />
+            </button>
+          </div>
+
+          {#each pageNavItems as page}
+            <div class="flex-none">
+              <button
+                class="text-base px-2 py-0.5 rounded-sm border-1"
+                class:dark:bg-surface-800={page != currentPage}
+                class:dark:bg-blue-200={page == currentPage}
+                class:dark:text-surface-900={page == currentPage}
+                class:dark:hover:bg-surface-900={page != currentPage}
+                disabled={page == currentPage}
+                on:click={() => {
+                  currentPage = page;
+                }}
+              >
+                {page + 1}
+              </button>
+            </div>
+          {/each}
+
+          <div class="flex-none">
+            <button
+              class="py-0.5 rounded-sm border-1"
+              class:dark:bg-surface-700={currentPage != totalPages - 1}
+              class:dark:bg-gray-700={currentPage == totalPages - 1}
+              class:dark:hover:bg-surface-900={currentPage != totalPages - 1}
+              disabled={currentPage == totalPages - 1}
+              on:click={() => {
+                currentPage++;
+              }}
+            >
+              <ChevronRightIcon width="24" height="24" />
+            </button>
+            <button
+              class="py-0.5 rounded-sm border-1"
+              class:dark:bg-surface-700={currentPage != totalPages - 1}
+              class:dark:bg-gray-700={currentPage == totalPages - 1}
+              class:dark:hover:bg-surface-900={currentPage != totalPages - 1}
+              disabled={currentPage == totalPages - 1}
+              on:click={() => {
+                currentPage = totalPages - 1;
+              }}
+            >
+              <ChevronDoubleRightIcon width="24" height="24" />
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
