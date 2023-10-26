@@ -6,6 +6,7 @@
   import LockOpenVariantIcon from "$lib/icons/LockOpenVariantIcon.svelte";
   import { favoriteStore } from "$lib/stores";
   import StarIcon from "$lib/icons/StarIcon.svelte";
+  import ToolTip from "$lib/components/ToolTip.svelte";
 
   export let server: Server;
 
@@ -20,6 +21,10 @@
 
   $: isFavorite = $favoriteStore.includes(server.Name) ? true : false;
 
+  const isOfficialTooltip = server.IsOfficial ? "Official server" : "Community server";
+  const hasPasswordTooltip = server.HasPassword ? "Password protected" : "No password";
+  $: toggleFavoriteTooltip = isFavorite ? "Remove as favorite" : "Add as favorite";
+
   // Add or remove the server to favorite store
   function handleToggleFavorite(name: string) {
     if ($favoriteStore.includes(name)) {
@@ -33,17 +38,19 @@
 <tr class="border-t dark:border-surface-900">
   <td class="pl-3">
     {#if !server.IsOfficial}
-      <button
-        type="button"
-        class="filter-round-button dark:hover:bg-surface-500/20"
-        on:click={() => handleToggleFavorite(server.Name)}
-      >
-        {#if isFavorite}
-          <StarIcon width="25" height="25" class="dark:text-yellow-500/80" />
-        {:else}
-          <StarOutlineIcon width="25" height="25" class="dark:text-surface-500" />
-        {/if}
-      </button>
+      <ToolTip text={toggleFavoriteTooltip} class="mt-12">
+        <button
+          type="button"
+          class="filter-round-button dark:hover:bg-surface-500/20"
+          on:click={() => handleToggleFavorite(server.Name)}
+        >
+          {#if isFavorite}
+            <StarIcon width="25" height="25" class="dark:text-yellow-500/80" />
+          {:else}
+            <StarOutlineIcon width="25" height="25" class="dark:text-surface-500" />
+          {/if}
+        </button>
+      </ToolTip>
     {/if}
   </td>
   <td class="p-3">
@@ -51,6 +58,7 @@
       <div class="flex-none">
         <img
           class="shadow-sm"
+          title={server.Map}
           alt={server.Map}
           src="images/maps/{imageName}.png"
           width="87"
@@ -68,7 +76,9 @@
           <div>
             <div class="flex gap-1.5">
               <div>
-                {regionChar}
+                <ToolTip text={server.Region.split("_")[0]} class="mt-6">
+                  {regionChar}
+                </ToolTip>
               </div>
               <div class="mt-1 text-xs dark:text-surface-300 tracking-wide">
                 {gameMode} • {server.Map} ({server.MapSize}) • {server.DayNight} • {server.Hz}Hz
@@ -82,34 +92,38 @@
   <td>
     <div class="flex gap-6">
       <div>
-        {#if server.HasPassword}
-          <LockIcon
-            width={passwordIconSize}
-            height={passwordIconSize}
-            class="dark:text-surface-200"
-          />
-        {:else}
-          <LockOpenVariantIcon
-            width={passwordIconSize}
-            height={passwordIconSize}
-            class="dark:text-surface-200/5"
-          />
-        {/if}
+        <ToolTip text={hasPasswordTooltip}>
+          {#if server.HasPassword}
+            <LockIcon
+              width={passwordIconSize}
+              height={passwordIconSize}
+              class="dark:text-surface-200"
+            />
+          {:else}
+            <LockOpenVariantIcon
+              width={passwordIconSize}
+              height={passwordIconSize}
+              class="dark:text-surface-200/5"
+            />
+          {/if}
+        </ToolTip>
       </div>
       <div>
-        {#if server.IsOfficial}
-          <ChevronDoubleUpIcon
-            width={officialIconsize}
-            height={officialIconsize}
-            class="-mt-0.5 dark:text-surface-200"
-          />
-        {:else}
-          <ChevronDoubleUpIcon
-            width={officialIconsize}
-            height={officialIconsize}
-            class="-mt-0.5 dark:text-surface-200/5"
-          />
-        {/if}
+        <ToolTip text={isOfficialTooltip}>
+          {#if server.IsOfficial}
+            <ChevronDoubleUpIcon
+              width={officialIconsize}
+              height={officialIconsize}
+              class="-mt-0.5 dark:text-surface-200"
+            />
+          {:else}
+            <ChevronDoubleUpIcon
+              width={officialIconsize}
+              height={officialIconsize}
+              class="-mt-0.5 dark:text-surface-200/5"
+            />
+          {/if}
+        </ToolTip>
       </div>
     </div>
   </td>

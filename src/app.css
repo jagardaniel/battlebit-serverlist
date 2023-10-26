@@ -22,4 +22,13 @@
   .filter-round-button {
     @apply p-2 rounded-full dark:hover:bg-surface-600;
   }
+
+  /* From https://play.tailwindcss.com/2eBipAu8Bt */
+  .tooltip {
+    @apply invisible absolute;
+  }
+
+  .has-tooltip:hover .tooltip {
+    @apply visible z-50;
+  }
 }

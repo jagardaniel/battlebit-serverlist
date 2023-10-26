@@ -23,6 +23,7 @@
   import ChevronRightIcon from "$lib/icons/ChevronRightIcon.svelte";
   import ChevronDoubleLeftIcon from "$lib/icons/ChevronDoubleLeftIcon.svelte";
   import ChevronDoubleRightIcon from "$lib/icons/ChevronDoubleRightIcon.svelte";
+  import ToolTip from "$lib/components/ToolTip.svelte";
 
   export let data;
 
@@ -300,25 +301,31 @@
     <div>
       <div class="flex gap-2 justify-end">
         <div>
-          <button
-            type="button"
-            class="filter-round-button"
-            on:click={() => {
-              showFavorites = !showFavorites;
-            }}
-          >
-            <StarIcon class="w-6 h-6 text-surface-500 dark:text-blue-200 {toggleFavoriteClass}" />
-          </button>
+          <ToolTip text="Toggle favorites" class="mt-12">
+            <button
+              type="button"
+              class="filter-round-button"
+              on:click={() => {
+                showFavorites = !showFavorites;
+              }}
+            >
+              <StarIcon class="w-6 h-6 text-surface-500 dark:text-blue-200 {toggleFavoriteClass}" />
+            </button>
+          </ToolTip>
         </div>
         <div>
-          <button type="button" class="filter-round-button" on:click={handleClearFilters}>
-            <BackspaceIcon class="w-6 h-6 text-surface-500 dark:text-blue-200" />
-          </button>
+          <ToolTip text="Clear filters" class="mt-12">
+            <button type="button" class="filter-round-button" on:click={handleClearFilters}>
+              <BackspaceIcon class="w-6 h-6 text-surface-500 dark:text-blue-200" />
+            </button>
+          </ToolTip>
         </div>
         <div>
-          <button type="button" class="filter-round-button" on:click={handleRefreshServers}>
-            <ReloadIcon class="w-6 h-6 text-surface-500 dark:text-blue-200" />
-          </button>
+          <ToolTip text="Refresh servers" class="mt-12">
+            <button type="button" class="filter-round-button" on:click={handleRefreshServers}>
+              <ReloadIcon class="w-6 h-6 text-surface-500 dark:text-blue-200" />
+            </button>
+          </ToolTip>
         </div>
       </div>
     </div>
