@@ -24,6 +24,7 @@
   import ChevronDoubleLeftIcon from "$lib/icons/ChevronDoubleLeftIcon.svelte";
   import ChevronDoubleRightIcon from "$lib/icons/ChevronDoubleRightIcon.svelte";
   import ToolTip from "$lib/components/ToolTip.svelte";
+  import CloseIcon from "$lib/icons/CloseIcon.svelte";
 
   export let data;
 
@@ -269,6 +270,17 @@
         class="w-full pl-11 filter-form {selectedSearchClass}"
         bind:value={$filterStore["name"]}
       />
+      {#if $filterStore.name.length > 0}
+        <div class="flex absolute inset-y-0 right-2 items-center pl-3">
+          <button
+            on:click={() => {
+              $filterStore.name = "";
+            }}
+          >
+            <CloseIcon class="w-5 h-5" />
+          </button>
+        </div>
+      {/if}
     </div>
     <div>
       <FilterDropdown text="Regions" filterKey="regions" items={regionsItems} />
