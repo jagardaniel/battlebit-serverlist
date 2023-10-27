@@ -27,6 +27,9 @@
       }
     });
 
+    // Apply sorting if set
+    if (sortBy.col != "") rows = sortColumn(rows, sortBy.col);
+
     return rows;
   }
 
@@ -104,11 +107,11 @@
 
   function sortColumn(servers: Server[], column: string) {
     if (column == "names") {
+      // Trim server name to avoid servers that puts a white space in front of the name to appear first/last
       servers = servers.sort((a: Server, b: Server) =>
         a.Name.trim() > b.Name.trim() ? 1 : b.Name.trim() > a.Name.trim() ? -1 : 0,
       );
     } else if (column == "players") {
-      // Trim server name to avoid servers that puts a white space in front of the name to appear first/last
       servers = servers.sort((a: Server, b: Server) => a.Players - b.Players);
     }
 
