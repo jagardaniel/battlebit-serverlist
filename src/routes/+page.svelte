@@ -89,6 +89,9 @@
       rows.push(server);
     });
 
+    // Apply sorting if set
+    if (sortBy.col != "") rows = sortColumn(rows, sortBy.col);
+
     return rows;
   }
 
@@ -99,37 +102,38 @@
   // ...and some StackOverflow posts.
   let sortBy = { col: "", ascending: true };
 
-  function sortByNames() {
-    if (sortBy.col == "names") {
-      sortBy.ascending = !sortBy.ascending;
-    } else {
-      sortBy.col = "names";
-      sortBy.ascending = true;
-    }
-
-    // Trim server name to prevent servers starting with a space to appear first in the list
-    if (sortBy.ascending) {
-      filteredServers = filteredServers.sort((a: Server, b: Server) =>
+  function sortColumn(servers: Server[], column: string) {
+    if (column == "names") {
+      servers = servers.sort((a: Server, b: Server) =>
         a.Name.trim() > b.Name.trim() ? 1 : b.Name.trim() > a.Name.trim() ? -1 : 0,
       );
-    } else {
-      filteredServers = filteredServers.reverse();
+    } else if (column == "players") {
+      // Trim server name to avoid servers that puts a white space in front of the name to appear first/last
+      servers = servers.sort((a: Server, b: Server) => a.Players - b.Players);
     }
+
+    if (!sortBy.ascending) servers.reverse();
+
+    return servers;
   }
 
-  function sortByPlayers() {
-    if (sortBy.col == "players") {
+  // Sort servers and update the current sorting status
+  function handleSortClick(column: string) {
+    if (sortBy.col == column) {
       sortBy.ascending = !sortBy.ascending;
     } else {
-      sortBy.col = "players";
-      sortBy.ascending = true;
+      sortBy.col = column;
+
+      // Players should be sorted DESC as default
+      if (sortBy.col == "players") {
+        sortBy.ascending = false;
+      } else {
+        sortBy.ascending = true;
+      }
     }
 
-    if (sortBy.ascending) {
-      filteredServers = filteredServers.sort((a: Server, b: Server) => a.Players - b.Players);
-    } else {
-      filteredServers = filteredServers.reverse();
-    }
+    // I couldn't think of a another way to sort the current filtered servers than this
+    filteredServers = sortColumn(filteredServers, column);
   }
 
   // Reset sort if filters changes
@@ -210,7 +214,12 @@
           <div>
             <!-- svelte-ignore a11y-click-events-have-key-events -->
             <!-- svelte-ignore a11y-no-static-element-interactions -->
-            <span class="cursor-pointer" on:click={sortByNames}>Servers</span>
+            <span
+              class="cursor-pointer"
+              on:click={() => {
+                handleSortClick("names");
+              }}>Servers</span
+            >
           </div>
           <div>
             {#if sortBy.col != "names"}
@@ -241,7 +250,12 @@
           <div>
             <!-- svelte-ignore a11y-click-events-have-key-events -->
             <!-- svelte-ignore a11y-no-static-element-interactions -->
-            <span class="cursor-pointer" on:click={sortByPlayers}>Players</span>
+            <span
+              class="cursor-pointer"
+              on:click={() => {
+                handleSortClick("players");
+              }}>Players</span
+            >
           </div>
           <div>
             {#if sortBy.col != "players"}
