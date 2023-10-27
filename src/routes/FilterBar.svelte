@@ -11,6 +11,7 @@
   import FilterDropdown from "./FilterDropdown.svelte";
 
   export let showFavorites: boolean;
+  export let sortColumn: string;
 
   // Data for our checkbox filters
   const gameModeItems: FilterDropdownItem[] = Object.entries(GameModes).map(([key, value]) => ({
@@ -45,6 +46,7 @@
   function handleClearFilters() {
     filterStore.reset();
     showFavorites = false;
+    sortColumn = "";
   }
 
   function handleRefreshServers() {

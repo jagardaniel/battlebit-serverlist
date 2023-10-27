@@ -136,9 +136,6 @@
     filteredServers = sortColumn(filteredServers, column);
   }
 
-  // Reset sort if filters changes
-  $: $filterStore, (sortBy = { col: "", ascending: true });
-
   $: if (showFavorites) {
     filteredServers = filterFavoriteServers(data.servers, $favoriteStore);
   } else {
@@ -201,7 +198,7 @@
 
 <!-- Filter bar -->
 <div class="p-4 dark:bg-surface-500">
-  <FilterBar bind:showFavorites />
+  <FilterBar bind:showFavorites bind:sortColumn={sortBy.col} />
 </div>
 
 <!-- Server table -->
