@@ -70,8 +70,8 @@
         <div class="flex flex-col -mb-1">
           <div
             class="-mt-0.5 dark:text-surface-100 font-medium"
-            class:dark:text-yellow-500={isFavorite}
-            class:dark:text-gray-300={isOffline}
+            class:dark:text-yellow-500={isFavorite && !isOffline}
+            class:dark:text-gray-400={isFavorite && isOffline}
           >
             {server.Name}
           </div>
