@@ -30,6 +30,28 @@
     // Apply sorting if set
     if (sortBy.col != "") rows = sortColumn(rows, sortBy.col);
 
+    // Add all favorite servers that are offline to the end of the array
+    favorites.forEach((favorite) => {
+      if (!servers.some((e) => e.Name == favorite)) {
+        rows.push({
+          Name: favorite,
+          Map: "Unknown",
+          MapSize: "Unknown",
+          Gamemode: "Unknown",
+          Region: "Unknown",
+          Players: 0,
+          QueuePlayers: 0,
+          MaxPlayers: 0,
+          Hz: 0,
+          DayNight: "Unknown",
+          IsOfficial: false,
+          HasPassword: false,
+          AntiCheat: "Unknown",
+          Build: "Offline",
+        });
+      }
+    });
+
     return rows;
   }
 

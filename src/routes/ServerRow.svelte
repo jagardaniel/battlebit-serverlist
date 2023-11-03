@@ -20,6 +20,7 @@
   const regionChar = Regions[server.Region as keyof typeof Regions] || "🌍";
 
   $: isFavorite = $favoriteStore.includes(server.Name) ? true : false;
+  $: isOffline = server.Build == "Offline" ? true : false;
 
   const isOfficialTooltip = server.IsOfficial ? "Official server" : "Community server";
   const hasPasswordTooltip = server.HasPassword ? "Password protected" : "No password";
@@ -70,6 +71,7 @@
           <div
             class="-mt-0.5 dark:text-surface-100 font-medium"
             class:dark:text-yellow-500={isFavorite}
+            class:dark:text-gray-300={isOffline}
           >
             {server.Name}
           </div>
