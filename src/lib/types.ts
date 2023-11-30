@@ -45,6 +45,8 @@ export const GameModes = {
   TDM: "Team Deathmatch",
   VoxelFortify: "Voxel Fortify",
   VoxelTrench: "Voxel Trench",
+  // Invasion is currently called 19 in the public API
+  19: "Invasion",
 };
 
 export const Maps = [
@@ -61,6 +63,7 @@ export const Maps = [
   "MultuIslands",
   "Namak",
   "OilDunes",
+  "Outskirts",
   "River",
   "Salhan",
   "SandySunset",
