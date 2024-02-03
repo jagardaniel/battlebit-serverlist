@@ -390,10 +390,10 @@
           <div class="flex-none">
             <button
               class="py-0.5 rounded-sm border-1"
-              class:dark:bg-surface-700={currentPage != totalPages - 1}
-              class:dark:bg-gray-700={currentPage == totalPages - 1}
-              class:dark:hover:bg-surface-900={currentPage != totalPages - 1}
-              disabled={currentPage == totalPages - 1}
+              class:dark:bg-surface-700={currentPage < totalPages - 1}
+              class:dark:hover:bg-surface-900={currentPage < totalPages - 1}
+              class:dark:bg-gray-700={currentPage >= totalPages - 1}
+              disabled={currentPage >= totalPages - 1}
               on:click={() => {
                 currentPage++;
               }}
@@ -402,10 +402,10 @@
             </button>
             <button
               class="py-0.5 rounded-sm border-1"
-              class:dark:bg-surface-700={currentPage != totalPages - 1}
-              class:dark:bg-gray-700={currentPage == totalPages - 1}
-              class:dark:hover:bg-surface-900={currentPage != totalPages - 1}
-              disabled={currentPage == totalPages - 1}
+              class:dark:bg-surface-700={currentPage < totalPages - 1}
+              class:dark:hover:bg-surface-900={currentPage < totalPages - 1}
+              class:dark:bg-gray-700={currentPage >= totalPages - 1}
+              disabled={currentPage >= totalPages - 1}
               on:click={() => {
                 currentPage = totalPages - 1;
               }}
