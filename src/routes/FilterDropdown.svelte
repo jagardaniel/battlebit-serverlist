@@ -51,7 +51,7 @@
     <!-- Dropdown content -->
     {#if show}
       <div id={filterKey} class="absolute shadow-md z-10 dark:bg-surface-600 p-2 mt-2 w-full">
-        <ul transition:slide={{ delay: 0, duration: 150 }}>
+        <ul transition:slide|global={{ delay: 0, duration: 150 }}>
           {#each items as item}
             <li>
               <label>
