@@ -1,8 +1,6 @@
 ## battlebit-serverlist
 
-A pretty useless web based server browser for the game BattleBit Remastered.
-
-Should have similar functionality as the `battlebit-serverbrowser-old` project but uses SvelteKit instead of Nextjs.
+A web based server browser for the game BattleBit Remastered.
 
 ### Development
 

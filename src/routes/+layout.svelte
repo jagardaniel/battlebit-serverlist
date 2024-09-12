@@ -15,7 +15,13 @@
     <div class="flex justify-between">
       <div>
         <p class="text-xs tracking-wide dark:text-surface-400">
-          This site is not affiliated with BattleBit Remastered/SgtOkiDoki
+          This site is not affiliated with BattleBit Remastered/SgtOkiDoki. Data from their
+          <a
+            class="dark:text-surface-300"
+            href="https://publicapi.battlebit.cloud/Servers/GetServerList"
+          >
+            public API.
+          </a>
         </p>
       </div>
       <div class="hover:dark:text-gray-600">
